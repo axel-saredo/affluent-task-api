@@ -11,12 +11,13 @@ dotenv.config();
 const URL_PAGE_1 = process.env.URL_PAGE_1!; 
 const URL_PAGE_2 = process.env.URL_PAGE_2!; 
 
-let USERS: User[];
+// let USERS: User[];
 
 @Service()
 export class UsersController {
   constructor(
-    private usersService: UsersService
+    private usersService: UsersService,
+    private users: User[]
   ) {}
 
   public async fetchUsers(req: Request, res: Response) {
@@ -27,12 +28,12 @@ export class UsersController {
       const usersFromFirstPage: User[] = responseFirstPage.data.data;
       const usersFromSecondPage: User[] = responseSecondPage.data.data;
 
-      const users: User[] = usersFromFirstPage.concat(usersFromSecondPage);
-      USERS = users;
+      const fetchedUsers: User[] = usersFromFirstPage.concat(usersFromSecondPage);
+      this.users = fetchedUsers;
 
-      await this.usersService.saveUsers(USERS);
+      await this.usersService.saveUsers(this.users);
 
-      res.json({ users: USERS }); 
+      res.json({ users: this.users }); 
     } catch (error) {
       console.error(error);
     }

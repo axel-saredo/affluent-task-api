@@ -14,7 +14,7 @@ app.use('/api', userRoutes);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     res.status(500).json({ message: err.message });
-  });
+});
 
 app.listen(SERVER_CONFIG.port, () => {
     console.log(`Server listening on port ${SERVER_CONFIG.port}...`);
