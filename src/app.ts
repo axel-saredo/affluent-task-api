@@ -10,7 +10,7 @@ const app = express();
 const db = new Sequelize(DATABASE_CONFIG);
 
 app.use(json());
-app.use('/users', userRoutes);
+app.use('/api', userRoutes);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     res.status(500).json({ message: err.message });
