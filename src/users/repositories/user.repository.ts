@@ -4,7 +4,7 @@ import { Column, Model, PrimaryKey, Table, AutoIncrement } from 'sequelize-types
   tableName: 'user',
   timestamps: true,
 })
-export class User extends Model {
+export class UserRepository extends Model {
     @PrimaryKey
     @AutoIncrement
     @Column
@@ -22,3 +22,5 @@ export class User extends Model {
     @Column
     avatar!: string;
 }
+
+export type User = UserRepository;

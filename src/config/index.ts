@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import { Dialect } from 'sequelize';
 import { SequelizeOptions } from 'sequelize-typescript';
-import * as models from '../models/user';
+import * as models from '../users/repositories/user.repository';
 
 dotenv.config();
 

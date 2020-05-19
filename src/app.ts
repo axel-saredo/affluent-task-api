@@ -3,7 +3,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import { json } from 'body-parser';
 
 import { SERVER_CONFIG, DATABASE_CONFIG } from './config';
-import userRoutes from './routes/users';
+import userRoutes from './users/router';
 import { Sequelize } from 'sequelize-typescript';
 
 const app = express();
