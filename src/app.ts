@@ -1,16 +1,30 @@
+import 'reflect-metadata';
 import express, { Request, Response, NextFunction } from 'express';
 import { json } from 'body-parser';
 
+import { SERVER_CONFIG, DATABASE_CONFIG } from './config';
 import userRoutes from './routes/users';
+import { Sequelize } from 'sequelize-typescript';
 
-const PORT = 3000;
 const app = express();
-app.use(json());
+const db = new Sequelize(DATABASE_CONFIG);
 
+app.use(json());
 app.use('/users', userRoutes);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     res.status(500).json({ message: err.message });
   });
 
-app.listen(3000, () => console.log(`Server listening on ${PORT}...`));
+app.listen(SERVER_CONFIG.port, () => {
+    console.log(`Server listening on port ${SERVER_CONFIG.port}...`);
+
+    db.authenticate().then(async() => {
+        console.log('Database connected...');
+        try {
+            await db.sync({force: true});
+        } catch (error) {
+            console.error(error);
+        }
+    });
+});
