@@ -11,8 +11,6 @@ dotenv.config();
 const URL_PAGE_1 = process.env.URL_PAGE_1!; 
 const URL_PAGE_2 = process.env.URL_PAGE_2!; 
 
-// let USERS: User[];
-
 @Service()
 export class UsersController {
   constructor(
