@@ -1,5 +1,5 @@
 import { Service } from 'typedi';
-import { UserRepository, User } from '../repositories/user.repository';
+import { UserRepository, User } from '../../repositories/user.repository';
 
 @Service()
 export default class UsersService {

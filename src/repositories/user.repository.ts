@@ -11,16 +11,16 @@ export class UserRepository extends Model {
     id?: number;
 
     @Column
-    email!: string;
+    email: string;
 
     @Column
-    first_name!: string;
+    first_name: string;
 
     @Column
-    last_name!: string;
+    last_name: string;
 
     @Column
-    avatar!: string;
+    avatar: string;
 }
 
 export type User = UserRepository;

@@ -3,7 +3,7 @@ import { Service } from 'typedi';
 import { Request, Response } from 'express';
 import axios from 'axios';
 
-import { User } from '../repositories/user.repository';
+import { User } from '../../repositories/user.repository';
 import UsersService from '../services/users.service';
 
 dotenv.config();

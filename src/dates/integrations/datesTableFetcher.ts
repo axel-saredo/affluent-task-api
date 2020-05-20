@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import puppeteer from 'puppeteer';
 import { Service } from 'typedi';
 import { DateRangePicker } from './utils/dateRangePicker';
+import { TableDataFetcher } from './utils/tableDataFetcher';
 
 dotenv.config();
 
@@ -12,31 +13,26 @@ const loginUrl = process.env.LOGIN_URL!;
 
 @Service()
 export class DatesTableFetcher {
-    constructor(private dateRangePicker: DateRangePicker) {}
+    constructor(
+        private dateRangePicker: DateRangePicker,
+        private tableDataFetcher: TableDataFetcher,
+    ) {}
 
     async fetchTable() {
         try {
             const browser = await puppeteer.launch({
-                headless: false,
+                headless: true,
                 args    : ['--no-sandbox', '--disable-setuid-sandbox'],
               });
+
             const page = await browser.newPage();
 
             await this.login(page);
-            await this.gotToDatesPage(page);
+            await this.goToDatesPage(page);
 
             await this.dateRangePicker.selectDateRange(page);
-            
-            await page.evaluate(() => {
-                document.querySelector('#DataTables_Table_0_length > label > div > button > div')!.scrollIntoView();
-            });
-            
-            const tableDataFilterButton = await page.$('#DataTables_Table_0_length > label > div > button > div');
-            tableDataFilterButton!.click();
 
-            await page.waitForSelector('#DataTables_Table_0_length > label > div > div > div > ul > li:nth-child(7) > a');
-            await page.click('#DataTables_Table_0_length > label > div > div > div > ul > li:nth-child(7) > a');
-
+            return await this.tableDataFetcher.fetchTableData(page);
         } catch (error) {
             console.error('DatesTableFetcher error: ', error);
             throw error;
@@ -52,7 +48,7 @@ export class DatesTableFetcher {
         await page.waitForNavigation()
     }
 
-    async gotToDatesPage(page: puppeteer.Page) {
+    async goToDatesPage(page: puppeteer.Page) {
         await page.goto(datesUrl);
         await page.waitFor(2000);
     }

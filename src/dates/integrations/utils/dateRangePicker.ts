@@ -4,7 +4,6 @@ import { Service } from 'typedi';
 
 dotenv.config();
 
-
 @Service()
 export class DateRangePicker {
     private startDate = '04/01/2020';

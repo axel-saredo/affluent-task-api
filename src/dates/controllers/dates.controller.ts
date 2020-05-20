@@ -8,8 +8,9 @@ export class DatesController {
 
     async getDates(req: Request, res: Response) {
         try {
-            await this.datesService.getDatesTableData();
-            res.send('Dates route!');
+            const datesTableData = await this.datesService.getDatesTableData();
+            await this.datesService.saveDatesTableData(datesTableData);
+            res.send({ dates: datesTableData });
         } catch (error) {
             console.error(error);
         }
