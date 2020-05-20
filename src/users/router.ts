@@ -8,7 +8,7 @@ const router = Router();
 const usersController: UsersController = Container.get(UsersController);
 
 router
-    .route('/users')
+    .route('/')
     .get((req, res) => usersController.fetchUsers(req, res));
 
 export default router;
