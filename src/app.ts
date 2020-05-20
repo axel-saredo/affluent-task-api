@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import express, { Request, Response, NextFunction } from 'express';
 import { Sequelize } from 'sequelize-typescript';
 import { json } from 'body-parser';
+import cors from 'cors';
 
 import { UserRepository } from './repositories/user.repository';
 import { DateRepository } from './repositories/date.repository';
@@ -10,6 +11,8 @@ import { SERVER_CONFIG, DATABASE_CONFIG } from './config';
 import apiRouter from './routes';
 
 const app = express();
+app.use(cors());
+
 const db = new Sequelize(DATABASE_CONFIG);
 
 app.use(json());
