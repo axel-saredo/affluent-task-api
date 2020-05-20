@@ -14,5 +14,5 @@ export const DATABASE_CONFIG: SequelizeOptions = {
 };
 
 export const SERVER_CONFIG = {
-    port: parseInt(process.env.PORT!) || 8080,
+    port: parseInt(process.env.PORT!) || 3001,
 };
