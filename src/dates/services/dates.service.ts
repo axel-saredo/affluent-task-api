@@ -9,12 +9,24 @@ export class DatesService {
     ) {}
 
     async getDatesTableData() {
-        return await this.datesTableFetcher.fetchTable();
+        const dataAlreadyExists = !!await DateRepository.findOne({ where: { id: '1' } });
+
+        if(!dataAlreadyExists) {
+            const data = await this.datesTableFetcher.fetchTable();
+            await this.saveDatesTableData(data);
+            return data;
+        } else {
+            return await this.getDatesTableDataFormDb();
+        }
     }
 
     async saveDatesTableData(datesTableData: DateModel[]) {
-        return DateRepository.bulkCreate(datesTableData, {
+        return await DateRepository.bulkCreate(datesTableData, {
             updateOnDuplicate: ['date']
-        })
+        });
+    }
+
+    private async getDatesTableDataFormDb() {
+        return await DateRepository.findAll();
     }
 }
