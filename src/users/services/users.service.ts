@@ -5,9 +5,15 @@ import { UserRepository, User } from '../../repositories/user.repository';
 export default class UsersService {
     constructor() {}
 
-    saveUsers(usersData: User[])  {
-        return UserRepository.bulkCreate(usersData, {
-            updateOnDuplicate: ['id']
-        });
-    } 
+    async saveUsers(usersData: User[])  {
+        const dataAlreadyExists = !!await UserRepository.findOne({ where: { id: '1' } });
+
+        if(!dataAlreadyExists) {
+            return await UserRepository.bulkCreate(usersData, {
+                updateOnDuplicate: ['id']
+            }); 
+        } else {
+            return;
+        }
+    }
 }
