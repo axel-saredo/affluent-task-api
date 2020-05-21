@@ -13,6 +13,8 @@ const loginUrl = process.env.LOGIN_URL!;
 
 @Service()
 export class DatesTableFetcher {
+    alreadyFetched = false;
+
     constructor(
         private dateRangePicker: DateRangePicker,
         private tableDataFetcher: TableDataFetcher,
@@ -20,6 +22,8 @@ export class DatesTableFetcher {
 
     async fetchTable() {
         try {
+            this.alreadyFetched = true;
+
             const browser = await puppeteer.launch({
                 headless: true,
                 args    : ['--no-sandbox', '--disable-setuid-sandbox'],
@@ -32,7 +36,9 @@ export class DatesTableFetcher {
 
             await this.dateRangePicker.selectDateRange(page);
 
-            return await this.tableDataFetcher.fetchTableData(page);
+            const data = await this.tableDataFetcher.fetchTableData(page);
+
+            return data;
         } catch (error) {
             console.error('DatesTableFetcher error: ', error);
             throw error;

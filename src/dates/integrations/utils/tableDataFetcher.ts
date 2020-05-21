@@ -3,6 +3,7 @@ import { Service } from 'typedi';
 
 @Service()
 export class TableDataFetcher {
+
     private tableRowsSelector = '#DataTables_Table_0 > tbody > tr';
     private lastTableRowSelector = '#DataTables_Table_0 > tbody > tr:nth-child(30)';
 
