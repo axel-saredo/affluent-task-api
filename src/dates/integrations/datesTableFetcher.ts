@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import puppeteer from 'puppeteer';
 import { Service } from 'typedi';
+
 import { DateRangePicker } from './utils/dateRangePicker';
 import { TableDataFetcher } from './utils/tableDataFetcher';
 

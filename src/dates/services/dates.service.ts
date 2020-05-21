@@ -1,4 +1,5 @@
 import { Service } from 'typedi';
+
 import { DatesTableFetcher } from '../integrations/datesTableFetcher';
 import { DateModel, DateRepository}  from '../../repositories/date.repository'
 
@@ -6,9 +7,7 @@ import { DateModel, DateRepository}  from '../../repositories/date.repository'
 export class DatesService {
     data: any;
 
-    constructor(
-        private datesTableFetcher: DatesTableFetcher,
-    ) {}
+    constructor(private datesTableFetcher: DatesTableFetcher) {}
 
     async getDatesTableData() {
         const dataAlreadyExists = !!await DateRepository.findOne({ where: { id: '1' } });

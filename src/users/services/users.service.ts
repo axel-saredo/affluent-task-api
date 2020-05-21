@@ -1,4 +1,5 @@
 import { Service } from 'typedi';
+
 import { UserRepository, User } from '../../repositories/user.repository';
 
 @Service()

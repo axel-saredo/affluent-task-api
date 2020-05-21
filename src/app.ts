@@ -4,11 +4,11 @@ import { Sequelize } from 'sequelize-typescript';
 import { json } from 'body-parser';
 import cors from 'cors';
 
-import { UserRepository } from './repositories/user.repository';
-import { DateRepository } from './repositories/date.repository';
-
 import { SERVER_CONFIG, DATABASE_CONFIG } from './config';
 import apiRouter from './routes';
+
+import { UserRepository } from './repositories/user.repository';
+import { DateRepository } from './repositories/date.repository';
 
 const app = express();
 app.use(cors());
